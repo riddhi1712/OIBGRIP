@@ -1,51 +1,53 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
- */
+package com.mycompany.numberguessing;
 
-package com.mycompany.numberguessinggame;
+
 
 /**
  *
  * @author riddh
  */
+
+import java.util.Random;
  import java.util.Scanner;
-public class NumberGuessingGame {
-
-    public static void main(String[] args) {
-       
-
-    
+public class NumberGuessing
+{
+    public static void main(String args[])
     {
-        int attempt = 1;
-        int userGuessNumber = 0;
-        int secretNumber = (int) (Math.random() * 99 + 1);          
-        Scanner userInput = new Scanner(System.in);
-        System.out.println("Welcome to Guess Number Game \nYou Will Be Asked To Guess A Number To Win The Game \nYou have Maximum 5 Attemp Limit");
-        do {
-            System.out.print("Enter a guess number between 1 to 100\n");
-            if(userInput.hasNextInt()) {
-                userGuessNumber = userInput.nextInt();
-                if (userGuessNumber == secretNumber)
-                {    
-                    System.out.println("OOhhOO!, Your Number is Correct. You Win the Game!");
+
+        int ans, guess, guessNum = 0;
+        final int maxGuesses = 5;
+        String str, playAgain = "y";
+
+        Scanner scan = new Scanner(System.in);
+        Random generator = new Random();
+        ans = generator.nextInt(101) + 1;
+
+        while (playAgain.equals("y") || playAgain.equals("Y")) {
+            System.out.println("Hey Welcome to the game \nGuess a number between 1 and 100");
+            System.out.println("Guess a number (0 to quit):");
+
+            guess = scan.nextInt();
+            guessNum = 0;
+            while (guess != 0)
+            {
+                guessNum++;
+                if (guess == ans) {
+                    System.out.println("Perfect! You got it Right!");
+                    break;
+                } else if (guess < ans)
+                    System.out.println("Opss! Your guess was too LOW, try some higher numbers.");
+                else if (guess > ans)
+                    System.out.println("Opps! Your guess was too HIGH, Try some lower numbers");
+                if (guessNum == maxGuesses) {
+                    System.out.println("The number was " + ans +"\nBetter luck next time");
                     break;
                 }
-                else if (userGuessNumber < secretNumber)
-                    System.out.println("Your Guess Number is Smaller.");
-                else if (userGuessNumber > secretNumber)
-                    System.out.println("Your Guess Number is Greater.");
-                if(attempt == 5) {
-                    System.out.println("You have exceeded the maximum attempt. Try Again");
-                    break;
-                }
-                attempt++;
-            }else {
-                System.out.println("Enter a Valid Integer Number");
-                break;
+                System.out.println("Enter your guess (0 to quit):");
+                guess = scan.nextInt();
             }
-        } while (userGuessNumber != secretNumber);
+            System.out.println("Want to Play again?(y/n)");
+            playAgain = scan.next();
+        }
+        System.out.println("Thanks for playing!");
     }
 }
-    }
-
